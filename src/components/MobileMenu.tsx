@@ -59,10 +59,11 @@ export default function MobileMenu() {
               animate={{ x: 0 }}
               exit={{ x: lang === 'ar' ? '100%' : '-100%' }}
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              className={clsx(
-                "fixed top-0 w-80 h-full glass border-r border-[#d1b16a]/40 z-[110] md:hidden overflow-y-auto",
-                lang === 'ar' ? 'right-0 border-l' : 'left-0'
-              )}
+            className={clsx(
+  "fixed top-0 bottom-0 w-4/5 max-w-xs h-screen glass border-r border-[#d1b16a]/40 z-[110] md:hidden overflow-y-auto bg-white",
+  lang === 'ar' ? 'right-0 border-l' : 'left-0'
+)}
+
             >
               <div className="p-6">
                 {/* Header */}

@@ -15,44 +15,59 @@ export default function AppHeader() {
   const { cart } = useCart();
   const t = useTranslation();
 
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+  const toggleLang = () => setLang(lang === "ar" ? "en" : "ar");
+
   return (
     <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-[#d1b16a]/40 flex items-center justify-between px-4 py-3 md:px-6 md:py-4 shadow-lg">
+      {/* Logo */}
       <Link to="/" className="font-montserrat font-bold tracking-widest text-xl md:text-2xl text-[#d1b16a]">
         {BRAND.name}
       </Link>
-      
+
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-3">
+        {/* Links */}
         <Link to="/products" className="hover:text-[#d1b16a] transition-colors px-3 py-2">
           {t("products")}
         </Link>
         <Link to="/collections" className="hover:text-[#d1b16a] transition-colors px-3 py-2">
           {t("collections")}
         </Link>
-        <Link to="/cart" className="hover:text-[#d1b16a] transition-colors flex items-center gap-1 relative px-3 py-2">
+
+        {/* Cart */}
+        <Link to="/cart" className="hover:text-[#d1b16a] transition-colors relative flex items-center gap-1 px-3 py-2">
           <FiShoppingCart />
           {Array.isArray(cart) && cart.length > 0 && (
-            <span className="absolute -top-1 -right-1 bg-[#d1b16a] text-black rounded-full px-2 text-xs font-bold">
+            <span className="absolute -top-2 -right-2 bg-[#d1b16a] text-black rounded-full w-5 h-5 text-xs font-bold flex items-center justify-center">
               {cart.length}
             </span>
           )}
         </Link>
-        
+
+        {/* Actions */}
         <div className="flex items-center gap-2 ml-4">
-          <button 
-            className="glass border rounded-lg px-3 py-2 hover:bg-[#d1b16a]/20 transition-colors" 
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          {/* Theme Switcher */}
+          <button
+            aria-label="Toggle Theme"
+            className="glass border rounded-lg px-3 py-2 hover:bg-[#d1b16a]/20 transition-colors"
+            onClick={toggleTheme}
           >
             {theme === "dark" ? <FiSun /> : <FiMoon />}
           </button>
-          <button 
-            className="glass border rounded-lg px-3 py-2 hover:bg-[#d1b16a]/20 transition-colors font-semibold" 
-            onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+
+          {/* Language Switcher */}
+          <button
+            aria-label="Switch Language"
+            className="glass border rounded-lg px-3 py-2 hover:bg-[#d1b16a]/20 transition-colors font-semibold"
+            onClick={toggleLang}
           >
             {lang === "ar" ? "EN" : "AR"}
           </button>
-          <Link 
-            to={user ? "/account" : "/login"} 
+
+          {/* Account/Login */}
+          <Link
+            to={user ? "/account" : "/login"}
             className="glass border rounded-lg px-3 py-2 hover:bg-[#d1b16a]/20 transition-colors"
           >
             <FiUser />

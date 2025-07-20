@@ -8,33 +8,39 @@ import GlassButton from '../components/GlassButton';
 
 export default function OrderConfirmation() {
   const location = useLocation();
-  const { name, address, total } = location.state || {};
+  const { name = '---', address = '---', total = '---' } = location.state || {};
   const { lang } = useLang();
   const t = useTranslation();
 
   return (
-    <div className="container mx-auto py-20 px-4 flex flex-col items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center px-4 py-20 bg-white">
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, type: "spring" }}
+        className="w-full max-w-md"
       >
-        <GlassCard className="text-center max-w-md">
+        <GlassCard className="text-center">
           <FiCheckCircle className="text-green-500 mx-auto mb-6" size={80} />
-          <h1 className="text-3xl font-bold mb-4 text-[#111]">{t("orderConfirmed")}</h1>
-          <p className="text-lg mb-6 text-gray-600">{t("thankYou")}</p>
-          
-          <div className="glass p-4 rounded-xl bg-gray-50/50 mb-6 text-left">
-            <div className="space-y-2">
-              <div><strong>{t("deliveredTo")}:</strong> {name}</div>
-              <div><strong>{t("address")}:</strong> {address}</div>
-              <div><strong>{t("total")}:</strong> <span className="text-[#d1b16a]">{total} {t("egp")}</span></div>
+
+          <h1 className="text-3xl font-bold text-[#111] mb-2">
+            {t("orderConfirmed")}
+          </h1>
+
+          <p className="text-gray-600 mb-6">{t("thankYou")}</p>
+
+          <div className="glass p-4 rounded-xl bg-gray-50/70 text-left mb-6 shadow-inner space-y-2">
+            <div><strong>{t("deliveredTo")}:</strong> {name}</div>
+            <div><strong>{t("address")}:</strong> {address}</div>
+            <div>
+              <strong>{t("total")}:</strong>{' '}
+              <span className="text-[#d1b16a] font-medium">{total} {t("egp")}</span>
             </div>
           </div>
-          
-          <Link to="/">
-            <GlassButton className="bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80">
-              <FiHome />
+
+          <Link to="/" className="block w-full">
+            <GlassButton className="bg-[#d1b16a] text-black hover:bg-[#d1b16a]/90 w-full justify-center">
+              <FiHome className="mr-2" />
               {t("backToHome")}
             </GlassButton>
           </Link>

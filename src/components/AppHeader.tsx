@@ -16,8 +16,8 @@ export default function AppHeader() {
   const t = useTranslation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-[#d1b16a]/40 flex items-center justify-between px-6 py-4 shadow-lg">
-      <Link to="/" className="font-montserrat font-bold tracking-widest text-2xl text-[#d1b16a]">
+    <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-[#d1b16a]/40 flex items-center justify-between px-4 py-3 md:px-6 md:py-4 shadow-lg">
+      <Link to="/" className="font-montserrat font-bold tracking-widest text-xl md:text-2xl text-[#d1b16a]">
         {BRAND.name}
       </Link>
       
@@ -60,7 +60,7 @@ export default function AppHeader() {
         </div>
       </nav>
 
-        {/* Mobile Menu */}
+      {/* Mobile Menu */}
       <MobileMenu />
     </header>
   );

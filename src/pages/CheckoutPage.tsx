@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiCreditCard, FiUser, FiMapPin } from 'react-icons/fi';
+import { FiCreditCard, FiUser, FiMapPin, FiPhone } from 'react-icons/fi';
 import { useCart } from '../contexts/CartContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
 import GlassCard from '../components/GlassCard';
@@ -21,15 +21,27 @@ export default function CheckoutPage() {
     phone: ""
   });
 
-  let subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  let discount = applied?.discount ? Math.floor((subtotal * applied.discount) / 100) : 0;
-  let shipping = 60;
-  if (applied?.freeShipping) shipping = 0;
-  let total = subtotal - discount + (cart.length > 0 ? shipping : 0);
+  const [error, setError] = useState("");
+
+  const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const discount = applied?.discount ? Math.floor((subtotal * applied.discount) / 100) : 0;
+  const shipping = applied?.freeShipping ? 0 : 60;
+  const total = subtotal - discount + (cart.length > 0 ? shipping : 0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form
+    if (formData.name.trim().length < 3) {
+      return setError(lang === "ar" ? "الاسم يجب أن يحتوي على 3 حروف على الأقل" : "Name must be at least 3 characters");
+    }
+    if (formData.phone.trim().length < 10) {
+      return setError(lang === "ar" ? "رقم الهاتف غير صحيح" : "Invalid phone number");
+    }
+
+    setError("");
     clearCart();
+    setFormData({ name: "", address: "", phone: "" });
     navigate("/order-confirmation", { state: { ...formData, total } });
   };
 
@@ -50,8 +62,15 @@ export default function CheckoutPage() {
     >
       <GlassCard>
         <h1 className="text-3xl font-bold mb-8 text-center font-montserrat">{t("checkout")}</h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && (
+            <div className="bg-red-100 border border-red-300 text-red-700 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
+          {/* Full Name */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               <FiUser className="inline mr-2" />
@@ -59,13 +78,30 @@ export default function CheckoutPage() {
             </label>
             <input
               required
-              className="w-full glass border border-[#d1b16a]/40 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#d1b16a]"
+              className="w-full glass border border-[#d1b16a]/40 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#d1b16a] min-w-0"
               value={formData.name}
-              onChange={e => setFormData({...formData, name: e.target.value})}
+              onChange={e => setFormData({ ...formData, name: e.target.value })}
               placeholder={lang === "ar" ? "أدخل اسمك الكامل" : "Enter your full name"}
             />
           </div>
-          
+
+          {/* Phone Number */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <FiPhone className="inline mr-2" />
+              {t("phone")}
+            </label>
+            <input
+              required
+              type="tel"
+              className="w-full glass border border-[#d1b16a]/40 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#d1b16a] min-w-0"
+              value={formData.phone}
+              onChange={e => setFormData({ ...formData, phone: e.target.value })}
+              placeholder={lang === "ar" ? "أدخل رقم هاتفك" : "Enter your phone number"}
+            />
+          </div>
+
+          {/* Address */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               <FiMapPin className="inline mr-2" />
@@ -74,13 +110,14 @@ export default function CheckoutPage() {
             <textarea
               required
               rows={3}
-              className="w-full glass border border-[#d1b16a]/40 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#d1b16a] resize-none"
+              className="w-full glass border border-[#d1b16a]/40 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#d1b16a] resize-none min-w-0"
               value={formData.address}
-              onChange={e => setFormData({...formData, address: e.target.value})}
+              onChange={e => setFormData({ ...formData, address: e.target.value })}
               placeholder={lang === "ar" ? "أدخل عنوانك كاملاً" : "Enter your complete address"}
             />
           </div>
 
+          {/* Summary */}
           <div className="glass p-4 rounded-xl bg-gray-50/50">
             <h3 className="font-bold text-lg mb-4">{t("total")}</h3>
             <div className="space-y-2 text-sm">
@@ -90,7 +127,7 @@ export default function CheckoutPage() {
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-green-600">
-                  <span>{t("couponDiscount")}:</span>
+                  <span>{t("couponDiscount")} ({applied.code.toUpperCase()}):</span>
                   <span>-{discount} {t("egp")}</span>
                 </div>
               )}
@@ -104,9 +141,10 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
-          
-          <GlassButton 
-            type="submit" 
+
+          {/* Submit */}
+          <GlassButton
+            type="submit"
             className="w-full bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80 text-xl py-4"
           >
             <FiCreditCard size={24} />

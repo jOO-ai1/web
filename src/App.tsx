@@ -4,7 +4,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { ToastProvider } from './contexts/ToastContext';
-import RoutesWrapper from './RoutesWrapper';
+importimport RoutesWrapper from "./components/RoutesWrapper";
+
 
 export default function App() {
   return (

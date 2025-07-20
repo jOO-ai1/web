@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx'; // ✅ الحل هنا: استيراد clsx
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FiMenu, FiX, FiShoppingCart, FiUser, FiGrid, FiBox, FiSun, FiMoon, FiGlobe, FiLogOut } from 'react-icons/fi';

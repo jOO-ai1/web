@@ -10,7 +10,7 @@ import GlassButton from '../GlassButton';
 
 export default function CartSummary() {
   const { cart, clearCart } = useCart();
-  const { showToast } ؤ useToast();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const { lang } = useLang();
   const t = useTranslation();
@@ -103,11 +103,11 @@ export default function CartSummary() {
           className="w-full bg-gray-400 text-black hover:bg-gray-500 border-none" 
           onClick={() => {
             clearCart();
-            showToa2 />
-          {t("emptst(t("cartEmptied"));
+            showToast(t("cartEmptied"));
           }}
         >
-          <FiTrashyCart")}
+          <FiTrash2 />
+          {t("emptyCart")}
         </GlassButton>
       </div>
     </GlassCard>

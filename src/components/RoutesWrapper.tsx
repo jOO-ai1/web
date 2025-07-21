@@ -6,20 +6,20 @@ import { AnimatePresence } from 'framer-motion';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 
-import Home from './pages/Home';
-import ProductsPage from './pages/ProductsPage';
-import ProductPage from './pages/ProductPage';
-import CollectionPage from './pages/CollectionPage';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
-import OrderConfirmation from './pages/OrderConfirmation';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import AccountPage from './pages/AccountPage';
-import OrdersPage from './pages/OrdersPage';
-import OrderTrackingPage from './pages/OrderTrackingPage';
-import NotFoundPage from './pages/NotFoundPage';
-import FavoritesPage from './pages/FavoritesPage';
+import Home from '../pages/Home';
+import ProductsPage from '../pages/ProductsPage';
+import ProductPage from '../pages/ProductPage';
+import CollectionPage from '../pages/CollectionPage';
+import CartPage from '../pages/CartPage';
+import CheckoutPage from '../pages/CheckoutPage';
+import OrderConfirmation from '../pages/OrderConfirmation';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
+import AccountPage from '../pages/AccountPage';
+import OrdersPage from '../pages/OrdersPage';
+import OrderTrackingPage from '../pages/OrderTrackingPage';
+import NotFoundPage from '../pages/NotFoundPage';
+import FavoritesPage from '../pages/FavoritesPage';
 import ProtectedRoute from './ProtectedRoute';
 
 export default function RoutesWrapper() {

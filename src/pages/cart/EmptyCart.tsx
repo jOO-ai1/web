@@ -2,7 +2,7 @@ import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useLang, useTranslation } from '../../contexts/LangContext';
-import GlassButton from '../GlassButton';
+import GlassButton from '../../components/GlassButton';
 import { motion } from 'framer-motion';
 
 export default function EmptyCart() {

@@ -44,19 +44,19 @@ export default function CartItem({ item, index, onRemove }: { item: any, index: 
 
       <div className="flex items-center justify-between w-full sm:w-auto gap-2">
         <div className="flex items-center gap-2">
-        <button
-          onClick={() => handleQty(-1)}
-          className="glass w-10 h-10 rounded-lg flex items-center justify-center hover:bg-[#d1b16a]/20 transition-colors min-h-[44px]"
-        >
-          <FiMinus />
-        </button>
-        <span className="w-12 text-center font-bold text-base sm:text-lg">{item.qty}</span>
-        <button
-          onClick={() => handleQty(1)}
-          className="glass w-10 h-10 rounded-lg flex items-center justify-center hover:bg-[#d1b16a]/20 transition-colors min-h-[44px]"
-        >
-          <FiPlus />
-        </button>
+          <button
+            onClick={() => handleQty(-1)}
+            className="glass w-10 h-10 rounded-lg flex items-center justify-center hover:bg-[#d1b16a]/20 transition-colors min-h-[44px]"
+          >
+            <FiMinus />
+          </button>
+          <span className="w-12 text-center font-bold text-base sm:text-lg">{item.qty}</span>
+          <button
+            onClick={() => handleQty(1)}
+            className="glass w-10 h-10 rounded-lg flex items-center justify-center hover:bg-[#d1b16a]/20 transition-colors min-h-[44px]"
+          >
+            <FiPlus />
+          </button>
         </div>
 
         <button

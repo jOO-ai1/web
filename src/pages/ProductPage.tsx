@@ -169,17 +169,17 @@ export default function ProductPage() {
               className="glass p-3 sm:p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all"
             >
               <Link to={`/product/${item.id}`}>
-              <img
-                src={item.image}
-                alt={item.name[lang]}
-                className="w-full h-32 sm:h-40 object-cover rounded-lg mb-3"
-              />
-              <h3 className="text-sm font-medium text-[#111] line-clamp-2">{item.name[lang]}</h3>
-              <p className="text-[#d1b16a] font-bold mt-1">{item.price} {t("egp")}</p>
+                <img
+                  src={item.image}
+                  alt={item.name[lang]}
+                  className="w-full h-32 sm:h-40 object-cover rounded-lg mb-3"
+                />
+                <h3 className="text-sm font-medium text-[#111] line-clamp-2">{item.name[lang]}</h3>
+                <p className="text-[#d1b16a] font-bold mt-1">{item.price} {t("egp")}</p>
               </Link>
             </motion.div>
           ))}
-        </div>
+          </div>
         </div>
       )}
     </div>

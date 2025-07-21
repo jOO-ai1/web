@@ -13,6 +13,7 @@
            <GlassButton 
              onClick={handleApplyCoupon} 
              disabled={!!applied}
+}
 -            className="px-4"
 +            className="px-4 w-full sm:w-auto"
            >

@@ -18,19 +18,17 @@ export default function ProductPage() {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
   const { showToast } = useToast();
-  
+
   const product = products.find(p => p.id === parseInt(id || "0"));
   const relatedProducts = products.filter(p => p.id !== product?.id).slice(0, 4);
-  
+
   const [selectedColor, setSelectedColor] = useState(product?.colors[0]?.name[lang] || "");
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || 0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageChanging, setIsImageChanging] = useState(false);
-  
-  // Auto-slideshow for product images
+
   useEffect(() => {
     if (!product) return;
-    
     const interval = setInterval(() => {
       setIsImageChanging(true);
       setTimeout(() => {
@@ -38,14 +36,11 @@ export default function ProductPage() {
         setIsImageChanging(false);
       }, 250);
     }, 4000);
-    
     return () => clearInterval(interval);
   }, [product]);
-  
-  // Update image when color is selected
+
   useEffect(() => {
     if (!product || !selectedColor) return;
-    
     const colorIndex = product.colors.findIndex(color => color.name[lang] === selectedColor);
     if (colorIndex !== -1 && colorIndex !== currentImageIndex) {
       setIsImageChanging(true);
@@ -55,7 +50,7 @@ export default function ProductPage() {
       }, 200);
     }
   }, [selectedColor, product, lang, currentImageIndex]);
-  
+
   if (!product) {
     return (
       <div className="container mx-auto py-20 text-center text-2xl text-red-500">
@@ -63,7 +58,7 @@ export default function ProductPage() {
       </div>
     );
   }
-  
+
   const handleAddToCart = () => {
     if (!selectedColor || !selectedSize) {
       showToast(lang === "ar" ? "يرجى اختيار اللون والمقاس" : "Please select color and size");
@@ -72,14 +67,14 @@ export default function ProductPage() {
     addToCart(product, selectedColor, selectedSize);
     showToast(t("addSuccess"));
   };
-  
+
   const handleFavoriteClick = () => {
     toggleFavorite(product.id);
     const isNowFavorite = !isFavorite(product.id);
     showToast(isNowFavorite ? t("addToFavorites") : t("removeFromFavorites"));
   };
 
-  const handleColorSelect = (color: any) => {
+  const handleColorSelect = (color) => {
     setSelectedColor(color.name[lang]);
   };
 
@@ -88,7 +83,6 @@ export default function ProductPage() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start mb-16">
-        {/* Product Image with Auto-slideshow */}
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.img
@@ -102,8 +96,6 @@ export default function ProductPage() {
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             />
           </AnimatePresence>
-          
-          {/* Image indicators */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
             {product.colors.map((_, index) => (
               <button
@@ -117,8 +109,8 @@ export default function ProductPage() {
                 }}
                 className={clsx(
                   "w-2 h-2 rounded-full transition-all duration-300",
-                  currentImageIndex === index 
-                    ? "bg-[#d1b16a] w-6" 
+                  currentImageIndex === index
+                    ? "bg-[#d1b16a] w-6"
                     : "bg-white/50 hover:bg-white/80"
                 )}
               />
@@ -126,8 +118,7 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Product Details */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
@@ -138,23 +129,20 @@ export default function ProductPage() {
               <h1 className="text-2xl sm:text-3xl font-bold text-[#111]">{product.name[lang]}</h1>
               <p className="text-sm text-gray-600 mt-2">{product.desc[lang]}</p>
             </div>
-            
-            {/* Favorite Button */}
             <motion.button
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.1 }}
               onClick={handleFavoriteClick}
               className="glass w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-200"
             >
-              <FiHeart 
-                size={24} 
-                className={isFavorite(product.id) ? "text-red-500 fill-current" : "text-gray-400"} 
+              <FiHeart
+                size={24}
+                className={isFavorite(product.id) ? "text-red-500 fill-current" : "text-gray-400"}
               />
             </motion.button>
           </div>
 
-          {/* Price */}
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -163,7 +151,6 @@ export default function ProductPage() {
             {product.price} {t("egp")}
           </motion.p>
 
-          {/* Colors with Interactive Selection */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -190,7 +177,6 @@ export default function ProductPage() {
             </div>
           </motion.div>
 
-          {/* Sizes */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -217,8 +203,7 @@ export default function ProductPage() {
             </div>
           </motion.div>
 
-          {/* Specifications */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
@@ -227,7 +212,7 @@ export default function ProductPage() {
             <h3 className="font-bold text-lg mb-3 text-[#111]">{t("specs")}</h3>
             <div className="space-y-2">
               {product.specs[lang].map(([key, value], index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -241,7 +226,6 @@ export default function ProductPage() {
             </div>
           </motion.div>
 
-          {/* Add to Cart Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -258,7 +242,6 @@ export default function ProductPage() {
         </motion.div>
       </div>
 
-      {/* Related Products */}
       {relatedProducts.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useLang } from './contexts/LangContext';
+import { useLang } from '../contexts/LangContext';
 import { AnimatePresence } from 'framer-motion';
 
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
 
 import Home from './pages/Home';
 import ProductsPage from './pages/ProductsPage';
@@ -19,17 +19,18 @@ import AccountPage from './pages/AccountPage';
 import OrdersPage from './pages/OrdersPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 import NotFoundPage from './pages/NotFoundPage';
-import ProtectedRoute from './components/ProtectedRoute';
+import FavoritesPage from './pages/FavoritesPage';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function RoutesWrapper() {
   const { lang } = useLang();
   const safeLang = ["ar", "en"].includes(lang) ? lang : "en";
 
   return (
-    <div dir={safeLang === "ar" ? "rtl" : "ltr"} className={safeLang === "ar" ? "font-arabic" : "font-montserrat"}>
+    <div dir={safeLang === "ar" ? "rtl" : "ltr"} className={`${safeLang === "ar" ? "font-arabic" : "font-montserrat"} min-h-screen`}>
       <Router>
         <AppHeader />
-        <main className="pt-28 min-h-[80vh] bg-app">
+        <main className="pt-20 sm:pt-24 lg:pt-28 min-h-[calc(100vh-64px)] bg-app">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -38,6 +39,7 @@ export default function RoutesWrapper() {
               <Route path="/collections/:id" element={<CollectionPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route

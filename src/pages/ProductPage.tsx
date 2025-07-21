@@ -1,119 +1,117 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import clsx from "clsx";
-
-const product = {
-  id: 1,
-  name: "Soleva Drift Runner",
-  description: "حذاء رياضي أنيق ومتين يناسب كل المناسبات.",
-  price: 749,
-  rating: 4.2,
-  reviews: 86,
-  image: "/images/shoe.jpg",
-  colors: ["black", "gray", "white"],
-  sizes: ["40", "41", "42", "43", "44"],
-};
-
-const relatedProducts = [
-  {
-    id: 2,
-    name: "Soleva Street Flex",
-    price: 699,
-    image: "/images/shoe2.jpg",
-  },
-  {
-    id: 3,
-    name: "Soleva Urban Walk",
-    price: 799,
-    image: "/images/shoe3.jpg",
-  },
-  {
-    id: 4,
-    name: "Soleva Classic Boost",
-    price: 599,
-    image: "/images/shoe4.jpg",
-  },
-  {
-    id: 5,
-    name: "Soleva Night Runner",
-    price: 849,
-    image: "/images/shoe5.jpg",
-  },
-];
+import { useLang, useTranslation } from "../contexts/LangContext";
+import { useFavorites } from "../contexts/FavoritesContext";
+import { useCart } from "../contexts/CartContext";
+import { useToast } from "../contexts/ToastContext";
+import { products } from "../data/products";
+import GlassButton from "../components/GlassButton";
+import SectionTitle from "../components/SectionTitle";
 
 export default function ProductPage() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { id } = useParams();
+  const { lang } = useLang();
+  const t = useTranslation();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
+  
+  const product = products.find(p => p.id === parseInt(id || "0"));
+  const relatedProducts = products.filter(p => p.id !== product?.id).slice(0, 4);
+  
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0]?.name[lang] || "");
+  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || 0);
+  
+  if (!product) {
+    return (
+      <div className="container mx-auto py-20 text-center text-2xl text-red-500">
+        {t("productNotFound")}
+      </div>
+    );
+  }
+  
+  const handleAddToCart = () => {
+    if (!selectedColor || !selectedSize) {
+      showToast(lang === "ar" ? "يرجى اختيار اللون والمقاس" : "Please select color and size");
+      return;
+    }
+    addToCart(product, selectedColor, selectedSize);
+    showToast(t("addSuccess"));
+  };
+  
+  const handleFavoriteClick = () => {
+    toggleFavorite(product.id);
+    const isNowFavorite = !isFavorite(product.id);
+    showToast(isNowFavorite ? t("addToFavorites") : t("removeFromFavorites"));
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 text-gray-800">
-      {/* المنتج */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        {/* صورة المنتج */}
+    <div className="container mx-auto px-4 py-6 sm:py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start mb-16">
+        {/* Product Image */}
         <motion.img
           src={product.image}
-          alt={product.name}
-          loading="lazy"
-          className="w-full rounded-2xl shadow-md"
+          alt={product.name[lang]}
+          className="w-full rounded-2xl shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         />
 
-        {/* التفاصيل */}
-        <div className="space-y-6">
+        {/* Product Details */}
+        <div className="space-y-4 sm:space-y-6">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold">{product.name}</h1>
-              <p className="text-sm text-gray-500 mt-1">{product.description}</p>
-              <div className="flex items-center gap-1 mt-2 text-yellow-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i}>{i < Math.floor(product.rating) ? "★" : "☆"}</span>
-                ))}
-                <span className="text-sm text-gray-600 ms-2">({product.reviews} تقييم)</span>
-              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#111]">{product.name[lang]}</h1>
+              <p className="text-sm text-gray-600 mt-2">{product.desc[lang]}</p>
             </div>
-            {/* زر المفضلة */}
+            
+            {/* Favorite Button */}
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={() => setIsFavorite(!isFavorite)}
-              className={clsx(
-                "p-2 rounded-full border text-xl",
-                isFavorite ? "bg-red-100 text-red-500 border-red-300" : "text-gray-400"
-              )}
+              onClick={handleFavoriteClick}
+              className="glass w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
             >
-              {isFavorite ? "❤️" : "🤍"}
+              <FiHeart 
+                size={24} 
+                className={isFavorite(product.id) ? "text-red-500 fill-current" : "text-gray-400"} 
+              />
             </motion.button>
           </div>
 
-          {/* السعر */}
-          <p className="text-2xl font-semibold text-black">EGP {product.price}</p>
+          {/* Price */}
+          <p className="text-2xl sm:text-3xl font-bold text-[#d1b16a]">
+            {product.price} {t("egp")}
+          </p>
 
-          {/* الألوان */}
+          {/* Colors */}
           <div>
-            <p className="font-semibold mb-1">اللون:</p>
+            <p className="font-semibold mb-3 text-[#111]">{t("color")}:</p>
             <div className="flex gap-3">
-              {product.colors.map((color) => (
+              {product.colors.map((color, index) => (
                 <motion.div
-                  key={color}
-                  onClick={() => setSelectedColor(color)}
+                  key={index}
+                  onClick={() => setSelectedColor(color.name[lang])}
                   whileTap={{ scale: 0.95 }}
                   className={clsx(
-                    "w-8 h-8 rounded-full border-2 cursor-pointer",
-                    selectedColor === color
-                      ? "ring-2 ring-black"
+                    "w-10 h-10 rounded-full border-2 cursor-pointer transition-all",
+                    selectedColor === color.name[lang]
+                      ? "ring-2 ring-[#d1b16a] border-[#d1b16a]"
                       : "border-gray-300"
                   )}
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: color.code }}
+                  title={color.name[lang]}
                 />
               ))}
             </div>
           </div>
 
-          {/* المقاسات */}
+          {/* Sizes */}
           <div>
-            <p className="font-semibold mb-1">المقاس:</p>
+            <p className="font-semibold mb-3 text-[#111]">{t("size")}:</p>
             <div className="flex gap-3">
               {product.sizes.map((size) => (
                 <motion.button
@@ -123,7 +121,7 @@ export default function ProductPage() {
                   className={clsx(
                     "px-4 py-1 rounded-full border text-sm font-medium",
                     selectedSize === size
-                      ? "bg-black text-white border-black"
+                      ? "bg-[#d1b16a] text-black border-[#d1b16a]"
                       : "text-gray-600 border-gray-300 hover:border-black"
                   )}
                 >
@@ -133,38 +131,57 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* زر الإضافة */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            className="bg-black text-white px-6 py-3 rounded-xl shadow hover:opacity-90 transition"
+          {/* Specifications */}
+          <div className="glass p-4 rounded-xl">
+            <h3 className="font-bold text-lg mb-3 text-[#111]">{t("specs")}</h3>
+            <div className="space-y-2">
+              {product.specs[lang].map(([key, value], index) => (
+                <div key={index} className="flex justify-between text-sm">
+                  <span className="text-gray-600">{key}:</span>
+                  <span className="font-medium text-[#111]">{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Add to Cart Button */}
+          <GlassButton
+            onClick={handleAddToCart}
+            className="w-full bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80 text-lg py-4"
           >
-            أضف للسلة
-          </motion.button>
+            <FiShoppingCart size={20} />
+            {t("addToCart")}
+          </GlassButton>
         </div>
       </div>
 
-      {/* منتجات مشابهة */}
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-6">منتجات مشابهة</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <div>
+          <SectionTitle>
+            {lang === "ar" ? "منتجات مشابهة" : "Related Products"}
+          </SectionTitle>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {relatedProducts.map((item) => (
             <motion.div
               key={item.id}
               whileHover={{ scale: 1.02 }}
-              className="border rounded-2xl p-3 shadow hover:shadow-md transition"
+              className="glass p-3 sm:p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all"
             >
+              <Link to={`/product/${item.id}`}>
               <img
                 src={item.image}
-                alt={item.name}
-                loading="lazy"
-                className="w-full h-40 object-cover rounded-lg mb-3"
+                alt={item.name[lang]}
+                className="w-full h-32 sm:h-40 object-cover rounded-lg mb-3"
               />
-              <h3 className="text-sm font-medium">{item.name}</h3>
-              <p className="text-gray-700 font-semibold mt-1">EGP {item.price}</p>
+              <h3 className="text-sm font-medium text-[#111] line-clamp-2">{item.name[lang]}</h3>
+              <p className="text-[#d1b16a] font-bold mt-1">{item.price} {t("egp")}</p>
+              </Link>
             </motion.div>
           ))}
         </div>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

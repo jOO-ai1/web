@@ -97,7 +97,10 @@ export const translations = {
     edit: "Edit",
     save: "Save",
     slogan: "Your step to Egyptian luxury",
-    menu: "Menu"
+    menu: "Menu",
+    favorites: "Favorites",
+    addToFavorites: "Add to Favorites",
+    removeFromFavorites: "Remove from Favorites"
   },
   ar: {
     home: "الرئيسية",
@@ -197,6 +200,9 @@ export const translations = {
     edit: "تعديل",
     save: "حفظ",
     slogan: "خطوتك للرفاهية المصرية",
-    menu: "القائمة"
+    menu: "القائمة",
+    favorites: "المفضلة",
+    addToFavorites: "أضف للمفضلة",
+    removeFromFavorites: "إزالة من المفضلة"
   }
 };

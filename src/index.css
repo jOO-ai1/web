@@ -8,6 +8,7 @@ body {
   background: linear-gradient(135deg, #fefefe 0%, #e9e6d8 100%);
   min-height: 100vh;
   color: #111;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .glass {
@@ -15,6 +16,7 @@ body {
   backdrop-filter: blur(8px);
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.3s ease;
 }
 
 .font-arabic {
@@ -30,18 +32,18 @@ body {
 }
 
 [data-theme="dark"] body {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
   color: #f3f3f3;
 }
 
 [data-theme="dark"] .glass {
-  background: rgba(45, 45, 45, 0.60);
+  background: rgba(30, 30, 30, 0.80);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #f3f3f3;
 }
 
 [data-theme="dark"] .bg-app {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
 }
 
 /* Dark mode text colors */
@@ -86,7 +88,7 @@ body {
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
 [data-theme="dark"] select {
-  background: rgba(45, 45, 45, 0.8);
+  background: rgba(30, 30, 30, 0.8);
   color: #f3f3f3;
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -117,11 +119,11 @@ body {
 
 /* Dark mode background colors */
 [data-theme="dark"] .bg-gray-50 {
-  background-color: rgba(45, 45, 45, 0.5) !important;
+  background-color: rgba(30, 30, 30, 0.5) !important;
 }
 
 [data-theme="dark"] .bg-white {
-  background-color: rgba(45, 45, 45, 0.8) !important;
+  background-color: rgba(30, 30, 30, 0.8) !important;
 }
 
 /* Dark mode hover states */
@@ -158,4 +160,33 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .glass {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+  
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  button, .glass-button {
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 16px;
+  }
+  
+  input, textarea, select {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

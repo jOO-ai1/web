@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  FiMenu, FiX, FiShoppingCart, FiUser, FiGrid, FiBox,
+  FiMenu, FiX, FiShoppingCart, FiUser, FiGrid, FiBox, FiHeart,
   FiSun, FiMoon, FiGlobe, FiLogOut
 } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
 
@@ -15,6 +16,7 @@ export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
   const { cart } = useCart();
+  const { favorites } = useFavorites();
   const { theme, setTheme } = useTheme();
   const { lang, setLang } = useLang();
   const t = useTranslation();
@@ -23,6 +25,7 @@ export default function MobileMenu() {
     { to: "/", icon: <FiGrid />, label: t("home") },
     { to: "/products", icon: <FiShoppingCart />, label: t("products") },
     { to: "/collections", icon: <FiBox />, label: t("collections") },
+    { to: "/favorites", icon: <FiHeart />, label: t("favorites"), badge: favorites.length || null },
     { to: "/cart", icon: <FiShoppingCart />, label: t("cart"), badge: cart.length || null },
   ];
 

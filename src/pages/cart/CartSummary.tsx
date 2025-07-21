@@ -1,4 +1,3 @@
-@@ .. @@
        {/* Coupon */}
        <div className="mb-6">
 -        <div className="flex gap-2 mb-2">

@@ -2,8 +2,8 @@ import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useLang, useTranslation } from '../../contexts/LangContext';
-import GlassCard from '../GlassCard';
-import GlassButton from '../GlassButton';
+import GlassCard from '../../components/GlassCard';
+import GlassButton from '../../components/GlassButton';
 
 export default function RemoveConfirmModal({ item, onCancel, onConfirm }: {
   item: any;

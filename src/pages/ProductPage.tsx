@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import clsx from "clsx";

@@ -67,24 +67,25 @@ export default function ProductsPage() {
       )}
 
       {/* Products Grid/List */}
-      <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" : "flex flex-col gap-6"}>
+      <div className={view === "grid" ? "mobile-product-grid sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" : "flex flex-col gap-6"}>
         {filtered.map((prod, index) => (
           <motion.div
             key={prod.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
+            transition={{ duration: 0.5, delay: index * 0.05, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ y: -4 }}
           >
-            <div className={`glass p-4 sm:p-6 rounded-[2rem] shadow-xl border border-white/25 group hover:shadow-2xl transition-all duration-300 ${view === "list" ? "flex gap-4 items-center" : "flex flex-col"}`}>
-              <div className={`relative overflow-hidden rounded-xl flex-shrink-0 ${view === "list" ? "w-32 h-32" : "w-full"}`}>
+            <div className={`product-card glass p-4 sm:p-6 rounded-[2rem] shadow-xl border border-white/25 group transition-all duration-300 ${view === "list" ? "flex gap-4 items-center" : "mobile-product-card flex flex-col"}`}>
+              <div className={`relative overflow-hidden rounded-xl flex-shrink-0 ${view === "list" ? "w-32 h-32" : "w-full mb-4"}`}>
                 <img 
                   src={prod.image} 
-                  className={`object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ${view === "list" ? "w-32 h-32" : "w-full h-40"}`}
+                  className={`object-cover rounded-xl transition-transform duration-500 will-change-transform ${view === "list" ? "w-32 h-32" : "w-full h-40 sm:h-48"}`}
                   alt={prod.name[lang]}
                 />
                 <button
                   onClick={() => handleFavoriteClick(prod.id)}
-                  className="absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                  className="absolute top-2 right-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200"
                 >
                   <FiHeart 
                     size={16} 
@@ -92,15 +93,15 @@ export default function ProductsPage() {
                   />
                 </button>
               </div>
-              <div className={`flex-1 space-y-2 ${view === "list" ? "pl-4" : "pt-4"}`}>
-                <div className="font-bold text-lg">{prod.name[lang]}</div>
-                <div className="text-[#d1b16a] font-bold mb-2">{prod.price} {t("egp")}</div>
+              <div className={`product-info flex-1 space-y-2 ${view === "list" ? "pl-4" : ""}`}>
+                <div className="mobile-product-title font-bold text-base sm:text-lg">{prod.name[lang]}</div>
+                <div className="mobile-product-price text-[#d1b16a] font-bold mb-2">{prod.price} {t("egp")}</div>
                 {view === "grid" && (
                   <p className="text-gray-600 text-sm line-clamp-2">{prod.desc[lang]}</p>
                 )}
                 <div className="flex flex-wrap gap-2 mt-2">
                   <Link to={`/product/${prod.id}`}>
-                    <GlassButton className="bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80 text-sm py-2">
+                    <GlassButton className="bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80 text-sm py-2 transition-all duration-200 hover:shadow-lg">
                       {lang === "ar" ? "تفاصيل" : "Details"}
                     </GlassButton>
                   </Link>

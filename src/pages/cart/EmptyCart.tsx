@@ -10,22 +10,53 @@ export default function EmptyCart() {
   const t = useTranslation();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      className="container mx-auto py-20 text-center"
-    >
-      <FiShoppingCart size={80} className="mx-auto mb-6 text-[#d1b16a]" />
-      <h1 className="text-3xl font-bold mb-4 text-[#111]">{t("empty")}</h1>
-      <p className="text-gray-600 mb-8">
-        {lang === "ar" ? "ابدأ التسوق الآن واكتشف مجموعتنا الرائعة" : "Start shopping now and discover our amazing collection"}
-      </p>
-      <Link to="/products">
-        <GlassButton className="bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80">
-          {t("shopNow")}
-        </GlassButton>
-      </Link>
-    </motion.div>
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        className="text-center max-w-md mx-auto px-4"
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 200 }}
+          className="mb-8"
+        >
+          <FiShoppingCart size={80} className="mx-auto text-[#d1b16a] drop-shadow-lg" />
+        </motion.div>
+        
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="text-3xl font-bold mb-4 text-[#111]"
+        >
+          {t("empty")}
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-gray-600 mb-8 leading-relaxed"
+        >
+          {lang === "ar" ? "ابدأ التسوق الآن واكتشف مجموعتنا الرائعة" : "Start shopping now and discover our amazing collection"}
+        </motion.p>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <Link to="/products">
+            <GlassButton className="bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80 px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <FiShoppingCart className="mr-2" />
+              {t("shopNow")}
+            </GlassButton>
+          </Link>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }

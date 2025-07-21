@@ -26,7 +26,7 @@ export default function Home() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         className="text-center mb-16"
       >
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 text-[#111] tracking-wider leading-snug">
@@ -42,21 +42,21 @@ export default function Home() {
 
       {/* Collections */}
       <SectionTitle>{t("collections")}</SectionTitle>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16">
+      <div className="mobile-product-grid sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16">
         {collections.map((col, index) => (
           <motion.div
             key={col.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
             <Link to={`/collections/${col.id}`}>
-              <div className="glass rounded-[2rem] shadow-lg overflow-hidden h-64 sm:h-80 flex flex-col justify-end relative group">
+              <div className="product-card glass rounded-[2rem] shadow-lg overflow-hidden h-64 sm:h-80 flex flex-col justify-end relative group">
                 <img 
                   src={col.image} 
                   alt={col.name[lang]} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" 
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 will-change-transform" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="relative z-10 p-6">
@@ -71,29 +71,29 @@ export default function Home() {
 
       {/* Featured Products */}
       <SectionTitle>{t("products")}</SectionTitle>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="mobile-product-grid sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {products.slice(0, 3).map((prod, index) => (
           <motion.div
             key={prod.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
             <Link to={`/product/${prod.id}`}>
-              <div className="glass p-4 sm:p-6 rounded-[2rem] shadow-xl border border-white/25 group hover:shadow-2xl transition-all duration-300">
+              <div className="product-card mobile-product-card glass p-4 sm:p-6 rounded-[2rem] shadow-xl border border-white/25 group transition-all duration-300">
                 <div className="relative overflow-hidden rounded-xl mb-4">
                   <img 
                     src={prod.image} 
                     alt={prod.name[lang]}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
+                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-500 will-change-transform" 
                   />
                   <button
                     onClick={(e) => {
                       e.preventDefault();
                       handleFavoriteClick(prod.id);
                     }}
-                    className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                    className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200"
                   >
                     <FiHeart 
                       size={16} 
@@ -101,9 +101,11 @@ export default function Home() {
                     />
                   </button>
                 </div>
-                <div className="font-bold text-base sm:text-lg mb-2 text-[#111]">{prod.name[lang]}</div>
-                <div className="text-[#d1b16a] font-bold text-lg sm:text-xl">{prod.price} {t("egp")}</div>
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2">{prod.desc[lang]}</p>
+                <div className="product-info">
+                  <div className="mobile-product-title font-bold text-base sm:text-lg mb-2 text-[#111]">{prod.name[lang]}</div>
+                  <div className="mobile-product-price text-[#d1b16a] font-bold text-lg sm:text-xl">{prod.price} {t("egp")}</div>
+                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">{prod.desc[lang]}</p>
+                </div>
               </div>
             </Link>
           </motion.div>

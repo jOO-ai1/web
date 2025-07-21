@@ -1,96 +1,115 @@
-import React, { useEffect, useState } from "react";
-import { useCart } from "../contexts/CartContext";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { FiCreditCard, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
+import { useToast } from '../../contexts/ToastContext';
+import { useLang, useTranslation } from '../../contexts/LangContext';
+import { COUPONS } from '../../constants/brand';
+import GlassCard from '../GlassCard';
+import GlassButton from '../GlassButton';
 
-const CartSummary = () => {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
-  const [total, setTotal] = useState(0);
+export default function CartSummary() {
+  const { cart, clearCart } = useCart();
+  const { showToast } ؤ useToast();
+  const navigate = useNavigate();
+  const { lang } = useLang();
+  const t = useTranslation();
 
-  useEffect(() => {
-    if (cartItems && cartItems.length > 0) {
-      const newTotal = cartItems.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
-      setTotal(newTotal);
+  const [coupon, setCoupon] = useState('');
+  const [applied, setApplied] = useState<any>(null);
+
+  const handleApplyCoupon = () => {
+    const found = COUPONS.find(c => c.code.toUpperCase() === coupon.trim().toUpperCase());
+    if (!found) {
+      showToast(t("invalidCoupon"));
+      setApplied(null);
     } else {
-      setTotal(0);
+      setApplied(found);
+      showToast(t("couponApplied"));
     }
-  }, [cartItems]);
+  };
 
-  if (!cartItems) {
-    return <p className="text-center py-10">جاري تحميل السلة...</p>;
-  }
-
-  if (cartItems.length === 0) {
-    return (
-      <div className="text-center py-20">
-        <h2 className="text-xl font-bold">السلة فاضية</h2>
-        <p>ضيف منتج علشان تبدأ الشراء</p>
-      </div>
-    );
-  }
+  const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const discount = applied?.discount ? Math.floor((subtotal * applied.discount) / 100) : 0;
+  const shipping = applied?.freeShipping ? 0 : 60;
+  const total = subtotal - discount + (cart.length > 0 ? shipping : 0);
 
   return (
-    <motion.div
-      className="p-4 max-w-2xl mx-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      <h1 className="text-2xl font-bold mb-4">محتويات السلة</h1>
-      {cartItems.map((item, index) => (
-        <motion.div
-          key={item.id || index}
-          className="flex justify-between items-center border-b py-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <div className="flex items-center gap-4">
-            <img
-              src={item.image || "/placeholder.jpg"}
-              alt={item.name}
-              className="w-16 h-16 object-cover rounded"
-            />
-            <div>
-              <p className="font-semibold">{item.name}</p>
-              <p className="text-sm text-gray-500">{item.color}</p>
-              <div className="flex items-center gap-2 mt-1">
-                <button
-                  onClick={() =>
-                    updateQuantity(item.id, Math.max(1, item.quantity - 1))
-                  }
-                  className="px-2 bg-gray-200 rounded"
-                >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  className="px-2 bg-gray-200 rounded"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col items-end">
-            <p>{item.price * item.quantity} ج.م</p>
-            <button
-              onClick={() => removeFromCart(item.id)}
-              className="text-sm text-red-500 mt-2"
-            >
-              حذف
-            </button>
-          </div>
-        </motion.div>
-      ))}
-      <div className="mt-6 text-right">
-        <p className="text-xl font-bold">الإجمالي: {total} ج.م</p>
-      </div>
-    </motion.div>
-  );
-};
+    <GlassCard>
+      <h3 className="text-xl font-bold mb-6">{t("total")}</h3>
 
-export default CartSummary;
+      {/* Coupon */}
+      <div className="mb-6">
+        <div className="flex gap-2 mb-2">
+          <input
+            className="glass border border-[#d1b16a]/40 px-3 py-2 rounded-lg flex-1 font-montserrat"
+            placeholder={lang === 'ar' ? "أدخل كود الكوبون" : "Enter coupon code"}
+            value={coupon}
+            onChange={e => setCoupon(e.target.value)}
+            disabled={!!applied}
+          />
+          <GlassButton 
+            onClick={handleApplyCoupon} 
+            disabled={!!applied}
+            className="px-4"
+          >
+            {applied ? t("applied") : t("applyCoupon")}
+          </GlassButton>
+        </div>
+        {applied && (
+          <div className="text-green-600 font-semibold text-sm bg-green-50 p-2 rounded-lg">
+            ✓ {applied.desc[lang]}
+          </div>
+        )}
+      </div>
+
+      {/* Prices */}
+      <div className="space-y-3 mb-6 pb-6 border-b border-gray-200">
+        <div className="flex justify-between">
+          <span>{lang === "ar" ? "الإجمالي قبل الخصم" : "Subtotal"}:</span>
+          <span className="font-bold">{subtotal} {t("egp")}</span>
+        </div>
+        {discount > 0 && (
+          <div className="flex justify-between text-green-600">
+            <span>{t("couponDiscount")}:</span>
+            <span className="font-bold">-{discount} {t("egp")}</span>
+          </div>
+        )}
+        <div className="flex justify-between">
+          <span>{t("shipping")}:</span>
+          <span className="font-bold">
+            {shipping === 0 ? t("free") : `${shipping} ${t("egp")}`}
+          </span>
+        </div>
+      </div>
+
+      {/* Total */}
+      <div className="flex justify-between text-xl font-bold mb-6">
+        <span>{t("total")}:</span>
+        <span className="text-[#d1b16a]">{total} {t("egp")}</span>
+      </div>
+
+      {/* Actions */}
+      <div className="space-y-3">
+        <GlassButton 
+          onClick={() => navigate("/checkout", { state: { appliedCoupon: applied } })}
+          className="w-full bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80"
+        >
+          <FiCreditCard />
+          {t("checkout")}
+        </GlassButton>
+
+        <GlassButton 
+          className="w-full bg-gray-400 text-black hover:bg-gray-500 border-none" 
+          onClick={() => {
+            clearCart();
+            showToa2 />
+          {t("emptst(t("cartEmptied"));
+          }}
+        >
+          <FiTrashyCart")}
+        </GlassButton>
+      </div>
+    </GlassCard>
+  );
+}

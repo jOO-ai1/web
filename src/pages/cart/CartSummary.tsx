@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLang, useTranslation } from '../../contexts/LangContext';
 import { COUPONS } from '../../constants/brand';
 import GlassCard from '../../components/GlassCard';
 import GlassButton from '../../components/GlassButton';
 
 export default function CartSummary() {
   const { items, total } = useCart();
-  const { lang, t } = useLanguage();
+  const { lang } = useLang();
+  const t = useTranslation();
   const [coupon, setCoupon] = useState('');
   const [applied, setApplied] = useState(null);
 

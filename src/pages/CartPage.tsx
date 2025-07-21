@@ -4,10 +4,10 @@ import { useCart } from '../contexts/CartContext';
 import { useToast } from '../contexts/ToastContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
 import SectionTitle from '../components/SectionTitle';
-import EmptyCart from '../components/cart/EmptyCart';
-import CartItem from '../components/cart/CartItem';
-import CartSummary from '../components/cart/CartSummary';
-import RemoveConfirmModal from '../components/cart/RemoveConfirmModal';
+import EmptyCart from './cart/EmptyCart';
+import CartItem from './cart/CartItem';
+import CartSummary from './cart/CartSummary';
+import RemoveConfirmModal from './cart/RemoveConfirmModal';
 
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();

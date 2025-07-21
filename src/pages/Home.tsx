@@ -13,7 +13,7 @@ export default function Home() {
   const t = useTranslation();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { showToast } = useToast();
-  
+
   const handleFavoriteClick = (productId: number) => {
     toggleFavorite(productId);
     const isNowFavorite = !isFavorite(productId);
@@ -29,12 +29,12 @@ export default function Home() {
         transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         className="text-center mb-16"
       >
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 text-[#111] tracking-wider leading-snug">
+        <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-[#111] tracking-wide leading-snug">
           {t("slogan")}
         </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto px-4">
-          {lang === "ar" 
-            ? "اكتشف مجموعة فريدة من الأحذية المصرية الفاخرة" 
+        <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-2xl mx-auto px-4">
+          {lang === "ar"
+            ? "اكتشف مجموعة فريدة من الأحذية المصرية الفاخرة"
             : "Discover a unique collection of luxury Egyptian footwear"
           }
         </p>
@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* Collections */}
       <SectionTitle>{t("collections")}</SectionTitle>
-      <div className="mobile-product-grid sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-16">
         {collections.map((col, index) => (
           <motion.div
             key={col.id}
@@ -52,16 +52,16 @@ export default function Home() {
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
             <Link to={`/collections/${col.id}`}>
-              <div className="product-card glass rounded-[2rem] shadow-lg overflow-hidden h-64 sm:h-80 flex flex-col justify-end relative group">
-                <img 
-                  src={col.image} 
-                  alt={col.name[lang]} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 will-change-transform" 
+              <div className="product-card glass rounded-2xl sm:rounded-[2rem] shadow-md overflow-hidden h-48 sm:h-64 flex flex-col justify-end relative group">
+                <img
+                  src={col.image}
+                  alt={col.name[lang]}
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="relative z-10 p-6">
-                  <div className="text-xl sm:text-2xl font-bold text-white mb-2">{col.name[lang]}</div>
-                  <div className="text-gray-300 text-sm">{col.desc[lang]}</div>
+                <div className="relative z-10 p-4 sm:p-6">
+                  <div className="text-sm sm:text-xl font-bold text-white mb-1">{col.name[lang]}</div>
+                  <div className="text-gray-300 text-xs">{col.desc[lang]}</div>
                 </div>
               </div>
             </Link>
@@ -71,7 +71,7 @@ export default function Home() {
 
       {/* Featured Products */}
       <SectionTitle>{t("products")}</SectionTitle>
-      <div className="mobile-product-grid sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
         {products.slice(0, 3).map((prod, index) => (
           <motion.div
             key={prod.id}
@@ -81,30 +81,30 @@ export default function Home() {
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
             <Link to={`/product/${prod.id}`}>
-              <div className="product-card mobile-product-card glass p-4 sm:p-6 rounded-[2rem] shadow-xl border border-white/25 group transition-all duration-300">
-                <div className="relative overflow-hidden rounded-xl mb-4">
-                  <img 
-                    src={prod.image} 
+              <div className="product-card glass p-2 sm:p-4 rounded-2xl shadow-md border border-white/20 group transition-all duration-300">
+                <div className="relative overflow-hidden rounded-xl mb-3">
+                  <img
+                    src={prod.image}
                     alt={prod.name[lang]}
-                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-500 will-change-transform" 
+                    className="w-full h-28 sm:h-40 object-cover transition-transform duration-500"
                   />
                   <button
                     onClick={(e) => {
                       e.preventDefault();
                       handleFavoriteClick(prod.id);
                     }}
-                    className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-200"
+                    className="absolute top-2 right-2 w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-md hover:scale-110 transition-all duration-200"
                   >
-                    <FiHeart 
-                      size={16} 
-                      className={isFavorite(prod.id) ? "text-red-500 fill-current" : "text-gray-400"} 
+                    <FiHeart
+                      size={16}
+                      className={isFavorite(prod.id) ? "text-red-500 fill-current" : "text-gray-400"}
                     />
                   </button>
                 </div>
                 <div className="product-info">
-                  <div className="mobile-product-title font-bold text-base sm:text-lg mb-2 text-[#111]">{prod.name[lang]}</div>
-                  <div className="mobile-product-price text-[#d1b16a] font-bold text-lg sm:text-xl">{prod.price} {t("egp")}</div>
-                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">{prod.desc[lang]}</p>
+                  <div className="font-bold text-sm sm:text-base mb-1 text-[#111]">{prod.name[lang]}</div>
+                  <div className="text-[#d1b16a] font-bold text-base sm:text-lg">{prod.price} {t("egp")}</div>
+                  <p className="text-gray-600 text-xs mt-1 line-clamp-2">{prod.desc[lang]}</p>
                 </div>
               </div>
             </Link>

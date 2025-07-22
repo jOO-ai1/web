@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiCreditCard } from 'react-icons/fi';
 import { useCart } from '../../contexts/CartContext';
 import { useLang, useTranslation } from '../../contexts/LangContext';
 import { COUPONS } from '../../constants/brand';

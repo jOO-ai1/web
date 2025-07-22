@@ -20,6 +20,8 @@ import OrdersPage from '../pages/OrdersPage';
 import OrderTrackingPage from '../pages/OrderTrackingPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import FavoritesPage from '../pages/FavoritesPage';
+import ContactPage from '../pages/ContactPage';
+import AboutPage from '../pages/AboutPage';
 import ProtectedRoute from './ProtectedRoute';
 
 export default function RoutesWrapper() {
@@ -35,11 +37,12 @@ export default function RoutesWrapper() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<ProductsPage />} />
-              <Route path="/collections" element={<Home />} />
               <Route path="/collections/:id" element={<CollectionPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route

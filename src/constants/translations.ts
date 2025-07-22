@@ -100,7 +100,22 @@ export const translations = {
     menu: "Menu",
     favorites: "Favorites",
     addToFavorites: "Add to Favorites",
-    removeFromFavorites: "Remove from Favorites"
+    removeFromFavorites: "Remove from Favorites",
+    paymentMethod: "Payment Method",
+    cashOnDelivery: "Cash on Delivery",
+    bankWallet: "Bank Wallet",
+    digitalWallet: "Digital Wallet",
+    primaryPhone: "Primary Phone",
+    secondaryPhone: "Secondary Phone (Optional)",
+    contactUs: "Contact Us",
+    aboutUs: "About Us",
+    getInTouch: "Get in Touch",
+    ourStory: "Our Story",
+    madeToMove: "Made to Move",
+    contactInfo: "Contact Information",
+    sendMessage: "Send Message",
+    yourMessage: "Your Message",
+    subject: "Subject"
   },
   ar: {
     home: "الرئيسية",
@@ -203,6 +218,21 @@ export const translations = {
     menu: "القائمة",
     favorites: "المفضلة",
     addToFavorites: "أضف للمفضلة",
-    removeFromFavorites: "إزالة من المفضلة"
+    removeFromFavorites: "إزالة من المفضلة",
+    paymentMethod: "طريقة الدفع",
+    cashOnDelivery: "الدفع عند الاستلام",
+    bankWallet: "محفظة البنك",
+    digitalWallet: "المحفظة الرقمية",
+    primaryPhone: "رقم الهاتف الأساسي",
+    secondaryPhone: "رقم هاتف إضافي (اختياري)",
+    contactUs: "اتصل بنا",
+    aboutUs: "من نحن",
+    getInTouch: "تواصل معنا",
+    ourStory: "قصتنا",
+    madeToMove: "صُنع للحركة",
+    contactInfo: "معلومات الاتصال",
+    sendMessage: "إرسال رسالة",
+    yourMessage: "رسالتك",
+    subject: "الموضوع"
   }
 };

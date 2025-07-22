@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  FiMenu, FiX, FiShoppingCart, FiUser, FiGrid, FiBox, FiHeart,
+  FiMenu, FiX, FiShoppingCart, FiUser, FiGrid, FiBox, FiHeart, FiPhone,
   FiSun, FiMoon, FiGlobe, FiLogOut
 } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
@@ -24,7 +24,8 @@ export default function MobileMenu() {
   const menuItems = [
     { to: "/", icon: <FiGrid />, label: t("home") },
     { to: "/products", icon: <FiShoppingCart />, label: t("products") },
-    { to: "/collections", icon: <FiBox />, label: t("collections") },
+    { to: "/about", icon: <FiUser />, label: t("aboutUs") },
+    { to: "/contact", icon: <FiPhone />, label: t("contactUs") },
     { to: "/favorites", icon: <FiHeart />, label: t("favorites"), badge: favorites.length || null },
     { to: "/cart", icon: <FiShoppingCart />, label: t("cart"), badge: cart.length || null },
   ];

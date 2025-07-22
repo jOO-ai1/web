@@ -1,6 +1,6 @@
 export const BRAND = {
   name: "Soleva",
-  slogan: "خطوتك للرفاهية المصرية",
+  slogan: "Made to Move",
   accent: "#d1b16a",
   country: "مصر",
   city: "القاهرة"

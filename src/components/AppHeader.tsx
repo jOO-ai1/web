@@ -33,8 +33,11 @@ export default function AppHeader() {
         <Link to="/products" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
           {t("products")}
         </Link>
-        <Link to="/collections" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
-          {t("collections")}
+        <Link to="/about" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
+          {t("aboutUs")}
+        </Link>
+        <Link to="/contact" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
+          {t("contactUs")}
         </Link>
         
         {/* Favorites */}

@@ -30,12 +30,12 @@ export default function Home() {
         className="text-center mb-16"
       >
         <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-4 text-[#111] tracking-wide leading-snug">
-          {t("slogan")}
+          {t("madeToMove")}
         </h1>
         <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-2xl mx-auto px-4">
           {lang === "ar"
-            ? "اكتشف مجموعة فريدة من الأحذية المصرية الفاخرة"
-            : "Discover a unique collection of luxury Egyptian footwear"
+            ? "اكتشف مجموعة متنوعة من الأحذية المصرية عالية الجودة للرجال والنساء"
+            : "Discover our diverse collection of high-quality Egyptian footwear for men and women"
           }
         </p>
       </motion.div>

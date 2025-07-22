@@ -6,7 +6,7 @@ import GlassCard from '../../components/GlassCard';
 import GlassButton from '../../components/GlassButton';
 
 export default function CartSummary() {
-  const { items, total } = useCart();
+  const { cart } = useCart();
   const { lang } = useLang();
   const t = useTranslation();
   const [coupon, setCoupon] = useState('');
@@ -19,10 +19,11 @@ export default function CartSummary() {
     }
   };
 
+  const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
   const discount = applied ? (total * applied.discount) / 100 : 0;
   const finalTotal = total - discount;
 
-  if (items.length === 0) return null;
+  if (cart.length === 0) return null;
 
   return (
     <GlassCard className="sticky top-4">
@@ -32,10 +33,10 @@ export default function CartSummary() {
 
       {/* Items */}
       <div className="space-y-2 mb-4">
-        {items.map(item => (
+        {cart.map(item => (
           <div key={item.id} className="flex justify-between text-sm">
-            <span>{item.name} × {item.quantity}</span>
-            <span>${(item.price * item.quantity).toFixed(2)}</span>
+            <span>{item.name} × {item.qty}</span>
+            <span>${(item.price * item.qty).toFixed(2)}</span>
           </div>
         ))}
       </div>

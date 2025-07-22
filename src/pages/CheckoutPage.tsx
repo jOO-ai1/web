@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiCreditCard, FiUser, FiMapPin, FiPhone, FiDollarSign, FiSmartphone, FiWallet } from 'react-icons/fi';
+import { FiCreditCard, FiUser, FiMapPin, FiPhone, FiDollarSign, FiSmartphone, FiZap } from 'react-icons/fi';
 import { useCart } from '../contexts/CartContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
 import GlassCard from '../components/GlassCard';
@@ -46,7 +46,7 @@ export default function CheckoutPage() {
     {
       id: "digital",
       name: t("digitalWallet"),
-      icon: <FiWallet />,
+      icon: <FiZap />,
       desc: lang === "ar" ? "الدفع عبر المحفظة الرقمية" : "Pay through digital wallet"
     }
   ];

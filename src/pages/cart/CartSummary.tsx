@@ -35,7 +35,7 @@ export default function CartSummary() {
       <div className="space-y-2 mb-4">
         {cart.map(item => (
           <div key={item.id} className="flex justify-between text-sm">
-            <span>{item.name} × {item.qty}</span>
+            <span>{item.name[lang]} × {item.qty}</span>
             <span>${(item.price * item.qty).toFixed(2)}</span>
           </div>
         ))}

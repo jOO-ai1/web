@@ -41,7 +41,7 @@ export default function AccountPage() {
       <div className="glass p-8 rounded-2xl shadow-xl">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
-          <aside className="lg:w-64">
+          <aside className="account-sidebar lg:w-64 hidden lg:block">
             <div className="space-y-2 mb-8">
               {tabs.map(item => (
                 <button
@@ -65,6 +65,23 @@ export default function AccountPage() {
               <FiLogOut /> {t("logout")}
             </button>
           </aside>
+
+          {/* Mobile Navigation */}
+          <div className="account-mobile-nav lg:hidden">
+            {tabs.map(item => (
+              <button
+                key={item.key}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all ${
+                  tab === item.key 
+                    ? "bg-[#d1b16a] text-black shadow-lg" 
+                    : "bg-gray-100 text-gray-700 hover:bg-[#d1b16a]/20"
+                }`}
+                onClick={() => setTab(item.key)}
+              >
+                {item.icon} {item.label}
+              </button>
+            ))}
+          </div>
 
           {/* Main Content */}
           <main className="flex-1">

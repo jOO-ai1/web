@@ -255,6 +255,11 @@ a:hover {
     font-size: 1.5rem;
     line-height: 1.3;
   }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 /* Enhanced Animations */
@@ -321,12 +326,12 @@ a:hover {
   animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mobile Product Grid */
+/* Mobile Product Grid - Optimized for 2 columns */
 .mobile-product-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 0 1rem;
+  gap: 0.75rem;
+  padding: 0 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -351,10 +356,19 @@ a:hover {
 }
 
 .mobile-product-card {
-  aspect-ratio: 0.8;
+  aspect-ratio: 0.85;
   min-height: 280px;
   display: flex;
   flex-direction: column;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .mobile-product-card {
+    min-height: 260px;
+    border-radius: 0.75rem;
+  }
 }
 
 .mobile-product-card img {
@@ -362,6 +376,12 @@ a:hover {
   object-fit: cover;
   border-radius: 0.75rem;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 640px) {
+  .mobile-product-card img {
+    height: 120px;
+  }
 }
 
 .mobile-product-card:hover img {
@@ -376,6 +396,12 @@ a:hover {
   justify-content: space-between;
 }
 
+@media (max-width: 640px) {
+  .mobile-product-card .product-info {
+    padding: 0.5rem;
+  }
+}
+
 .mobile-product-title {
   font-size: 0.875rem;
   line-height: 1.2;
@@ -387,10 +413,22 @@ a:hover {
   overflow: hidden;
 }
 
+@media (max-width: 640px) {
+  .mobile-product-title {
+    font-size: 0.8rem;
+  }
+}
+
 .mobile-product-price {
   font-size: 1rem;
   font-weight: 700;
   color: var(--primary-gold);
+}
+
+@media (max-width: 640px) {
+  .mobile-product-price {
+    font-size: 0.9rem;
+  }
 }
 
 /* Enhanced Card Hover Effects */
@@ -554,36 +592,116 @@ a:hover {
   margin-bottom: 1.5rem;
 }
 
-/* Responsive improvements */
+/* Mobile-first responsive improvements */
 @media (max-width: 640px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
   .glass {
-    margin: 0.5rem;
+    margin: 0.25rem;
     border-radius: 1rem;
+    padding: 1rem;
   }
   
   .mobile-product-grid {
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+  
+  /* Checkout page mobile optimization */
+  .checkout-form {
+    padding: 1rem;
+  }
+  
+  .payment-methods-grid {
+    grid-template-columns: 1fr;
     gap: 0.75rem;
-    padding: 0 0.5rem;
   }
   
-  .mobile-product-card {
-    min-height: 260px;
+  /* Cart page mobile optimization */
+  .cart-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
   }
   
-  .mobile-product-card img {
-    height: 120px;
+  .cart-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
   }
   
-  .mobile-product-title {
-    font-size: 0.8rem;
+  /* Account page mobile optimization */
+  .account-sidebar {
+    display: none;
   }
   
-  .mobile-product-price {
-    font-size: 0.9rem;
+  .account-mobile-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+  }
+  
+  .account-mobile-nav button {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-nav-item {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .mobile-product-action {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Enhanced mobile animations */
+@media (max-width: 768px) {
+  .mobile-fade-in {
+    animation: fadeInUp 0.4s ease-out;
+  }
+  
+  .mobile-slide-in {
+    animation: slideInRight 0.3s ease-out;
+  }
+}
+
+/* Mobile-optimized spacing */
+@media (max-width: 640px) {
+  .mobile-spacing {
+    padding: 1rem 0.5rem;
+  }
+  
+  .mobile-section {
+    margin-bottom: 2rem;
+  }
+  
+  .mobile-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 }

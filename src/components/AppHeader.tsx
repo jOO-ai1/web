@@ -30,6 +30,9 @@ export default function AppHeader() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-1 lg:gap-3">
         {/* Links */}
+        <Link to="/" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
+          {t("home")}
+        </Link>
         <Link to="/products" className="hover:text-[#d1b16a] transition-colors px-2 lg:px-3 py-2 text-sm lg:text-base">
           {t("products")}
         </Link>

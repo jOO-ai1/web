@@ -171,7 +171,7 @@ export default function CheckoutPage() {
                   <FiCreditCard className="inline mr-2" />
                   {t("paymentMethod")}
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="payment-methods-grid grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {paymentMethods.map((method) => (
                     <motion.div
                       key={method.id}

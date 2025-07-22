@@ -23,7 +23,7 @@ export default function CartItem({ item, index, onRemove }: { item: any, index: 
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 glass rounded-xl border border-white/20 hover:shadow-lg transition-all"
+      className="cart-item flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 glass rounded-xl border border-white/20 hover:shadow-lg transition-all"
     >
       <img 
         src={item.image} 

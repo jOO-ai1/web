@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FiShoppingCart, FiUser, FiMoon, FiSun, FiHeart } from 'react-icons/fi';
-import { BRAND } from '../constants/brand';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
+import Logo from './Logo';
 import MobileMenu from './MobileMenu';
 
 export default function AppHeader() {
@@ -23,9 +22,7 @@ export default function AppHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-[#d1b16a]/40 flex items-center justify-between px-4 py-3 md:px-6 md:py-4 shadow-lg min-h-[64px]">
       {/* Logo */}
-      <Link to="/" className="font-montserrat font-bold tracking-widest text-lg sm:text-xl md:text-2xl text-[#d1b16a]">
-        {BRAND.name}
-      </Link>
+      <Logo size="medium" className="flex-shrink-0" />
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-1 lg:gap-3">

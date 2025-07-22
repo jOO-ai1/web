@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FiTarget, FiHeart, FiTrendingUp, FiUsers } from 'react-icons/fi';
 import { useLang, useTranslation } from '../contexts/LangContext';
 import GlassCard from '../components/GlassCard';
+import Logo from '../components/Logo';
 
 export default function AboutPage() {
   const { lang } = useLang();
@@ -67,12 +68,12 @@ export default function AboutPage() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
+        <div className="mb-8">
+          <Logo size="large" className="justify-center" />
+        </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-[#111]">
           {t("aboutUs")}
         </h1>
-        <div className="text-2xl sm:text-3xl font-bold text-[#d1b16a] mb-6">
-          {t("madeToMove")}
-        </div>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
           {lang === 'ar'
             ? 'في سوليفا، نؤمن بأن كل خطوة تحكي قصة. نحن نصنع أحذية تجمع بين الأناقة المصرية الأصيلة والراحة العصرية، لتكون رفيقك في كل رحلة.'

@@ -11,6 +11,7 @@ import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLang, useTranslation } from '../contexts/LangContext';
+import Logo from './Logo';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,9 +77,7 @@ export default function MobileMenu() {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-[#d1b16a] tracking-wider">
-                  {t("menu")}
-                </h2>
+                <Logo size="small" />
                 <button
                   onClick={() => setIsOpen(false)}
                   className="glass p-2 rounded-lg border border-[#d1b16a]/40 hover:bg-[#d1b16a]/20 transition"

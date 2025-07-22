@@ -690,6 +690,17 @@ a:hover {
   }
 }
 
+/* Logo responsive behavior */
+.logo-container img {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 640px) {
+  .logo-container img {
+    max-height: 32px;
+  }
+}
+
 /* Mobile-optimized spacing */
 @media (max-width: 640px) {
   .mobile-spacing {

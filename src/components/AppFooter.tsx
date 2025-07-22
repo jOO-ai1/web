@@ -1,6 +1,6 @@
 import React from 'react';
-import { BRAND } from '../constants/brand';
 import { useLang, useTranslation } from '../contexts/LangContext';
+import Logo from './Logo';
 
 export default function AppFooter() {
   const { lang } = useLang();
@@ -10,13 +10,11 @@ export default function AppFooter() {
   return (
     <footer className="glass bg-white/20 border-t border-white/20 py-6 text-center mt-24">
       <div className="flex flex-col items-center gap-2 px-4">
-        <span className="font-montserrat font-bold tracking-widest text-[#111] uppercase">
-          {BRAND.name}
-        </span>
+        <Logo size="small" className="mb-2" />
         <span className="text-[#666] text-sm leading-relaxed max-w-xl">
           {lang === "ar"
-            ? `© ${currentYear} جميع الحقوق محفوظة لـ ${BRAND.name}. مقر الشركة: ${BRAND.city}، ${BRAND.country}.`
-            : `© ${currentYear} All rights reserved for ${BRAND.name}. HQ: ${t("companyLocation")}.`}
+            ? `© ${currentYear} جميع الحقوق محفوظة لـ سوليفا. مقر الشركة: القاهرة، مصر.`
+            : `© ${currentYear} All rights reserved for Soleva. HQ: ${t("companyLocation")}.`}
         </span>
       </div>
     </footer>

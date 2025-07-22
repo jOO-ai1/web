@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useLang, useTranslation } from '../../contexts/LangContext';
 import { COUPONS } from '../../constants/brand';
@@ -8,6 +9,7 @@ import GlassButton from '../../components/GlassButton';
 export default function CartSummary() {
   const { cart } = useCart();
   const { lang } = useLang();
+  const navigate = useNavigate();
   const t = useTranslation();
   const [coupon, setCoupon] = useState('');
   const [applied, setApplied] = useState(null);
@@ -84,7 +86,13 @@ export default function CartSummary() {
       </div>
 
       <GlassButton className="w-full mt-6">
-        {t("proceedToCheckout")}
+        <GlassButton 
+          onClick={() => navigate("/checkout", { state: { appliedCoupon: applied } })}
+          className="w-full bg-[#d1b16a] text-black border-none hover:bg-[#d1b16a]/80"
+        >
+          <FiCreditCard />
+          {t("proceedToCheckout")}
+        </GlassButton>
       </GlassButton>
     </GlassCard>
   );

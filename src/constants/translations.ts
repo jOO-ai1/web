@@ -115,7 +115,8 @@ export const translations = {
     contactInfo: "Contact Information",
     sendMessage: "Send Message",
     yourMessage: "Your Message",
-    subject: "Subject"
+    subject: "Subject",
+    proceedToCheckout: "Proceed to Checkout"
   },
   ar: {
     home: "الرئيسية",
@@ -233,6 +234,7 @@ export const translations = {
     contactInfo: "معلومات الاتصال",
     sendMessage: "إرسال رسالة",
     yourMessage: "رسالتك",
-    subject: "الموضوع"
+    subject: "الموضوع",
+    proceedToCheckout: "الدفع"
   }
 };
